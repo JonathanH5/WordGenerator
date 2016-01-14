@@ -1,4 +1,4 @@
-package org.peelframework.wordcount.datagen.util;
+package de.tuberlin.dima.wordgenerator.util;
 
 
 public interface SymmetricPRNG {

@@ -1,4 +1,4 @@
-package org.peelframework.wordcount.datagen.flink
+package de.tuberlin.dima.wordgenerator
 
 import org.apache.commons.math3.distribution.{ZipfDistribution, BinomialDistribution, UniformIntegerDistribution}
 

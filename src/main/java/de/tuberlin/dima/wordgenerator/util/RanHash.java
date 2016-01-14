@@ -1,4 +1,4 @@
-package org.peelframework.wordcount.datagen.util;
+package de.tuberlin.dima.wordgenerator.util;
 
 /**
  * c.f. "Press, William H. Numerical recipes 3rd edition: The art of scientific computing. Cambridge

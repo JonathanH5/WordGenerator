@@ -1,7 +1,7 @@
-package org.peelframework.wordcount.datagen.flink
+package de.tuberlin.dima.wordgenerator
 
-import org.peelframework.wordcount.datagen.flink.Distributions.{Zipf, Binomial, DiscreteUniform, DiscreteDistribution}
-import org.peelframework.wordcount.datagen.util.RanHash
+import de.tuberlin.dima.wordgenerator.util.RanHash
+import Distributions.{Zipf, Binomial, DiscreteUniform, DiscreteDistribution}
 
 object WordGenerator {
 

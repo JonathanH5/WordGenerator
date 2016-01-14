@@ -1,6 +1,6 @@
-package org.peelframework.wordcount.datagen.flink
+package de.tuberlin.dima.wordgenerator
 
-import org.peelframework.wordcount.datagen.util.RanHash
+import de.tuberlin.dima.wordgenerator.util.RanHash
 
 class Dictionary (seed : Long, size : Int, minLength : Int = 2, maxLength : Int = 16)
                  (implicit alphabet : Set[Char] = Set.empty ++ ('a' to 'z')) extends Iterable[String] {
