@@ -47,6 +47,11 @@ public class RanHash implements SymmetricPRNG {
         return x * D_2_POW_NEG_64 + 0.5;
     }
 
+    /**
+     * Generates the next integer in the random sequence.
+     * @param k upper bound (exclusive)
+     * @return Integer n where <code>0 <= n < k</code>
+     */
     @Override
     public int nextInt(int k) {
         // omitting >= 0 check here
