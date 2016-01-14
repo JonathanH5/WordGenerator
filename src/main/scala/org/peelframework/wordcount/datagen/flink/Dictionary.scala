@@ -3,7 +3,7 @@ package org.peelframework.wordcount.datagen.flink
 import org.peelframework.wordcount.datagen.util.RanHash
 
 class Dictionary (seed : Long, size : Int, minLength : Int = 2, maxLength : Int = 16)
-                 (implicit alphabet : Set[Char]) extends Iterable[String] {
+                 (implicit alphabet : Set[Char] = Set.empty ++ ('a' to 'z')) extends Iterable[String] {
 
   private val NUM_CHARACTERS = 26
 
