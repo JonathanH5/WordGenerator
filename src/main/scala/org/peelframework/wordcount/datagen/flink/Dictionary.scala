@@ -15,10 +15,11 @@ class Dictionary (seed : Long, size : Int) extends Iterable[String] {
   def word (index : Int) : String = {
     require(0 <= index && index < size)
     // skip to the correct position within the random sequence
-    random.skipTo(index * (NUM_CHARACTERS + 1))
-    val len = random.nextInt(MAX_LENGTH - MIN_LENGTH - 1) + MIN_LENGTH
-    val strBld = new StringBuilder(len)
-    for (i <- 0 until len) {
+    // assume that every word needs 1 random value for the length and max_length random integers for the actual word
+    random.skipTo(index * (MAX_LENGTH + 1))
+    val wordLength = random.nextInt(MAX_LENGTH - MIN_LENGTH + 1) + MIN_LENGTH
+    val strBld = new StringBuilder(wordLength)
+    for (i <- 0 until wordLength - 1) {
         val c = ('a'.toInt + random.nextInt(NUM_CHARACTERS)).toChar
         strBld.append(c)
       }
