@@ -1,8 +1,5 @@
 package org.peelframework.wordcount.datagen.flink
 
-import org.apache.flink.api.scala._
-import org.apache.flink.core.fs.FileSystem
-import org.apache.flink.util.NumberSequenceIterator
 import org.peelframework.wordcount.datagen.flink.Distributions.{Zipf, Binomial, DiscreteUniform, DiscreteDistribution}
 import org.peelframework.wordcount.datagen.util.RanHash
 
@@ -12,36 +9,24 @@ object WordGenerator {
 
   def main(args: Array[String]): Unit = {
 
-    if (args.length != 5) {
-      Console.err.println("Usage: <jar> numberOfTasks tuplesPerTask sizeOfDictionary distribution[params] outputPath")
+    if (args.length != 2) {
+      Console.err.println("Usage: <jar> numberOfWords sizeOfDictionary")
       System.exit(-1)
     }
 
-    val numberOfTasks         = args(0).toInt
-    val tuplesPerTask         = args(1).toLong
-    val sizeOfDictionary      = args(2).toInt
-    implicit val distribution = parseDist(sizeOfDictionary, args(3))
-    val outputPath            = args(4)
+    val numberOfWords         = args(0).toInt
+    val sizeOfDictionary      = args(1).toInt
+//    implicit val distribution = parseDist(sizeOfDictionary, args(2))
+    implicit val distribution = parseDist(sizeOfDictionary, "Uniform")
 
-//    val numberOfTasks         = coresPerWorker * numberOfWorkers
-    val numberOfWords         = numberOfTasks * tuplesPerTask
+
 
     // generate dictionary of random words
     implicit val dictionary = new Dictionary(SEED, sizeOfDictionary).words()
 
-    val environment = ExecutionEnvironment.getExecutionEnvironment
-
-    environment
-      // create a sequence [1 .. N] to create N words
-      .fromParallelCollection(new NumberSequenceIterator(1, numberOfWords))
-      // set up workers
-      .setParallelism(numberOfTasks)
-      // map every n <- [1 .. N] to a random word sampled from a word list
-      .map(i => word(i))
-      // write result to file
-      .writeAsText(outputPath, FileSystem.WriteMode.OVERWRITE)
-
-    environment.execute(s"WordGenerator[$numberOfWords]")
+    // create a sequence [1 .. N] to create N words
+    // map every n <- [1 .. N] to a random word sampled from a word list
+    (1L to numberOfWords) map (i => word(i)) map (w => println(w))
   }
 
   def word(i: Long)(implicit dictionary: Array[String], distribution: DiscreteDistribution) = {
