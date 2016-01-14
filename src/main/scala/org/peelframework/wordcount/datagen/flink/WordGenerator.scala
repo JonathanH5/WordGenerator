@@ -19,17 +19,18 @@ object WordGenerator {
     val minLength             = args(2).toInt
     val maxLength             = args(3).toInt
 
-//    implicit val distribution = parseDist(sizeOfDictionary, args(2))
+    // change to desired word distribution here
     implicit val distribution = parseDist(sizeOfDictionary, "Uniform")
 
-
+    // define the implicit alphabet to be used by the dictionary
+    implicit val alphabet = Set.empty ++ ('a' to 'z') ++ ('A' to 'Z')
 
     // generate dictionary of random words
     implicit val dictionary = new Dictionary(SEED, sizeOfDictionary, minLength, maxLength).words()
 
     // create a sequence [1 .. N] to create N words
     // map every n <- [1 .. N] to a random word sampled from a word list
-    (1L to numberOfWords) map (i => word(i)) map (w => println(w))
+    (0L until numberOfWords) map (i => word(i)) map (w => println(w))
   }
 
   def word(i: Long)(implicit dictionary: Array[String], distribution: DiscreteDistribution) = {

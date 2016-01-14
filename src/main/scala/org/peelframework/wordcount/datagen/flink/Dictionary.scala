@@ -2,7 +2,8 @@ package org.peelframework.wordcount.datagen.flink
 
 import org.peelframework.wordcount.datagen.util.RanHash
 
-class Dictionary (seed : Long, size : Int, minLength : Int = 2, maxLength : Int = 16) extends Iterable[String] {
+class Dictionary (seed : Long, size : Int, minLength : Int = 2, maxLength : Int = 16)
+                 (implicit alphabet : Set[Char]) extends Iterable[String] {
 
   private val NUM_CHARACTERS = 26
 
@@ -16,9 +17,11 @@ class Dictionary (seed : Long, size : Int, minLength : Int = 2, maxLength : Int 
     // assume that every word needs 1 random value for the length and max_length random integers for the actual word
     random.skipTo(index * (maxLength + 1))
     val wordLength = random.nextInt(maxLength - minLength + 1) + minLength
+    val numCharacters = alphabet.size
     val strBld = new StringBuilder(wordLength)
     for (i <- 0 until wordLength) {
-        val c = ('a'.toInt + random.nextInt(NUM_CHARACTERS)).toChar
+        val r = random.nextInt(numCharacters)
+        val c = alphabet.toIndexedSeq(r)
         strBld.append(c)
       }
     strBld.mkString
