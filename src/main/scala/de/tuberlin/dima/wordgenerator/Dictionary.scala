@@ -5,8 +5,6 @@ import de.tuberlin.dima.wordgenerator.util.RanHash
 class Dictionary (seed : Long, size : Int, minLength : Int = 2, maxLength : Int = 16)
                  (implicit alphabet : Set[Char] = Set.empty ++ ('a' to 'z')) extends Iterable[String] {
 
-  private val NUM_CHARACTERS = 26
-
   private val random : RanHash = new RanHash(seed)
 
   override def iterator: Iterator[String] = words.iterator
