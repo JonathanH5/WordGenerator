@@ -80,7 +80,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.peelframework.wordcount.datagen.flink.WordGenerator</mainClass>
+                            <mainClass>de.tuberlin.dima.wordgenerator.WordGenerator</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
